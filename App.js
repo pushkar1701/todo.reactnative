@@ -13,6 +13,9 @@ export default class Todo extends React.Component {
         {
           task: 'Learn React and React-native - Self evaluation on december 10, 2017',
         },
+        {
+          task: 'Love her - Forever',
+        },
       ],
     }
   }
@@ -29,8 +32,7 @@ export default class Todo extends React.Component {
 const styles = StyleSheet.create({
   container: {
     paddingTop: 40,
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#F7F7F7',
     alignItems: 'center',
     justifyContent: 'center',
   },
