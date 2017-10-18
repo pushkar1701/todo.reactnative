@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
-import { Text, View, ListView } from 'react-native';
+import { Text, View, ListView, TouchableHighlight, StyleSheet } from 'react-native';
 import TaskRow from './TaskRow'
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    flex: 1,
+    backgroundColor: '#F7F7F7',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+	},
+	button: {
+		height: 60,
+		borderColor: '#05A5D1',
+		borderWidth: 2,
+		borderColor: '#333',
+		margin: 20,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonText: {
+		color: '#FAFAFA',
+		fontSize: 20,
+		fontWeight: '600',
+	},
+});
 
 class TaskList extends React.Component {
 	constructor(props, context) {
@@ -24,12 +48,17 @@ class TaskList extends React.Component {
 
 	render() {
 		return(
-			<View style={this.props.style}>
+			<View style={styles.container}>
 				<ListView
 					dataSource={this.state.dataSource}
 					key={this.props.todos}
-					renderRow={this.renderRow.bind(this)}>
-				</ListView>
+					renderRow={this.renderRow.bind(this)}
+				/>
+				<TouchableHighlight style={styles.button}>
+					<Text style={styles.buttonText}>
+						Add One
+					</Text>
+				</TouchableHighlight>
 			</View>
 		);
 	}
