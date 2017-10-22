@@ -38,11 +38,23 @@ class TaskList extends React.Component {
 		}
 	}
 	
-	renderRow(todo) {
+	renderRow = (todo) => {
 		return(
-			<TaskRow todo={todo} />
+			<TaskRow
+				onDone={this.props.onDone}
+				todo={todo} 
+			/>
 		)
 
+	}
+
+	componentWillReceiveProps = (nextProps) => {
+		const dataSource = this
+			.state
+			.dataSource
+			.cloneWithRows(nextProps.todos);
+
+		this.setState({ dataSource });
 	}
 
 	render() {
@@ -51,7 +63,7 @@ class TaskList extends React.Component {
 				<ListView
 					dataSource={this.state.dataSource}
 					key={this.props.todos}
-					renderRow={this.renderRow.bind(this)}
+					renderRow={this.renderRow}
 				/>
 				<TouchableHighlight 
 				onPress={this.props.onAddStarted}
@@ -68,6 +80,7 @@ class TaskList extends React.Component {
 TaskList.propTypes = {
 	todos: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
 	onAddStarted: React.PropTypes.func.isRequired,
+	onDone: React.PropTypes.func.isRequired,	
 };
 
 export default TaskList;

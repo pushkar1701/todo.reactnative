@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, TouchableHighlight } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -17,12 +17,23 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 20,
         fontWeight: '300',
+    },
+    doneButton: {
+        borderRadius: 5,
+        backgroundColor: '#EAEAEA',
+        padding: 5,
+        height: 40,
     }
   });
 
 class TaskRow extends React.Component {
     constructor(props, context) {
         super(props, context);
+    }
+
+    onDonePressed = () => {
+        console.log('we are here');
+        this.props.onDone(this.props.todo);
     }
 
     render() {
@@ -32,6 +43,12 @@ class TaskRow extends React.Component {
                 style={styles.label}>
                 {this.props.todo.task}
                 </Text>
+                <TouchableHighlight
+                    style={styles.doneButton}
+                    onPress={this.onDonePressed}
+                >
+                    <Text>Done</Text>
+                </TouchableHighlight>
             </View>
         );
     }
@@ -39,6 +56,7 @@ class TaskRow extends React.Component {
 };
 
 TaskRow.PropTypes = {
+    onDone: React.PropTypes.func.isRequired,
     todo: React.PropTypes.shape({
         task: React.PropTypes.string.isRequired,
     }).isRequired,

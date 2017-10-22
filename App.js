@@ -11,10 +11,10 @@ export default class Todo extends React.Component {
     this.state ={
       todos: [
         {
-          task: 'L1 visa attempt- Wait till 3 monts',
+          task: 'L1 visa attempt',
         },
         {
-          task: 'Learn React and React-native - Self evaluation on december 10, 2017',
+          task: 'Learn React/React-native',
         },
       ],
     }
@@ -33,7 +33,19 @@ export default class Todo extends React.Component {
 
   onAdd = (task) => {
     console.log('Add karo', task);
+    this.state.todos.push({
+      task: task,
+    });
+    this.setState({todos: this.state.todos});
     this.nav.pop();
+  }
+
+  onDone = (todo) => {
+    console.log('Done the task------------', todo.task);
+    const filterToDos = this.state.todos.filter((filterToDo) => {
+      return filterToDo !== todo;
+    });
+    this.setState({todos: filterToDos});
   }
 
   renderScene = (route, nav) => {
@@ -41,8 +53,8 @@ export default class Todo extends React.Component {
       case 'taskform':
         return (
           <TaskForm
-            onCancel={this.onCancel}
-            onAdd={this.onAdd}/>
+            onAdd={this.onAdd}
+            onCancel={this.onCancel}/>
         );
       case 'samplepage':
         return (<Text>Sample page here</Text>);
@@ -50,6 +62,7 @@ export default class Todo extends React.Component {
         return (
           <TaskList
           onAddStarted={this.onAddStarted}
+          onDone={this.onDone}
           todos={this.state.todos} />
         );
       default:
